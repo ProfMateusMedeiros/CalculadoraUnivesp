@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CALCULADORA DE NOTAS - UNIVESP</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4.2.4"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@600;700;800;900&family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    body { font-family: 'Open Sans', sans-serif; }
+    h1, h2, h3, .font-heading { font-family: 'Barlow', sans-serif; }
+    input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+    input[type=number] { appearance: textfield; }
+  </style>
+</head>
+<body class="min-h-screen bg-slate-100/90 text-slate-900 flex flex-col items-center justify-center p-3 sm:p-6 md:p-8">
+
+  <main class="w-full max-w-xl bg-white rounded-3xl shadow-2xl shadow-slate-300/60 border border-slate-200/90 overflow-hidden">
+    
+    <!-- Cabeçalho com Fundo Branco (#FFFFFF) e Logo Oficial Anexado -->
+    <header class="bg-[#FFFFFF] p-6 sm:p-7 border-b border-slate-200/90 relative">
+      
+      <!-- Linha superior: Logo Univesp Anexado e Criador -->
+      <div class="flex flex-wrap items-center justify-between gap-4 mb-5">
+        <!-- Logo Univesp anexado pelo usuário -->
+        <div class="inline-flex items-center">
+          <img src="data:image/png;base64,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" alt="UNIVESP - Universidade Virtual do Estado de São Paulo" class="h-10 sm:h-12 w-auto object-contain" />
+        </div>
+
+        <!-- Crédito do Criador solicitado: Prof° Mateus Medeiros -->
+        <div class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 text-slate-700 text-xs font-medium border border-slate-200 shadow-2xs">
+          <svg class="w-4 h-4 text-[#D13239] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+          </svg>
+          <span>Desenvolvido por: <strong class="font-bold text-slate-900">Prof° Mateus Medeiros</strong></span>
+        </div>
+      </div>
+
+      <!-- Título solicitado em caixa alta -->
+      <h1 class="text-2xl sm:text-3xl font-black tracking-tight uppercase text-slate-900 font-heading">
+        CALCULADORA DE NOTAS
+      </h1>
+      <p class="text-slate-500 text-xs sm:text-sm mt-1 font-medium">
+        Universidade Virtual do Estado de São Paulo · Simulação de Média e Exame
+      </p>
+
+      <!-- Resumo dos Pesos Institucionais Univesp -->
+      <div class="grid grid-cols-3 gap-2.5 mt-5 pt-4 border-t border-slate-100 text-center">
+        <div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200/80">
+          <span class="block text-[11px] text-slate-500 font-semibold">Peso AVA</span>
+          <span class="text-sm sm:text-base font-extrabold text-slate-800 font-heading">40%</span>
+        </div>
+        <div class="bg-slate-50 rounded-xl p-2.5 border border-slate-200/80">
+          <span class="block text-[11px] text-slate-500 font-semibold">Peso Presencial</span>
+          <span class="text-sm sm:text-base font-extrabold text-slate-800 font-heading">60%</span>
+        </div>
+        <div class="bg-red-50 rounded-xl p-2.5 border border-red-100">
+          <span class="block text-[11px] text-[#D13239] font-semibold">Média Mínima</span>
+          <span class="text-sm sm:text-base font-extrabold text-[#D13239] font-heading">5,0</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="p-6 sm:p-7 space-y-6">
+
+      <!-- CAMPO 1: NOTA DO AVA -->
+      <section class="space-y-1.5">
+        <div class="flex items-center justify-between">
+          <label for="ava" class="text-sm font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-[#D13239] text-white flex items-center justify-center text-xs font-black">1</span>
+            Nota no AVA (Ambiente Virtual)
+          </label>
+          <span class="text-xs font-semibold text-slate-400">Peso 40% (0 a 10)</span>
+        </div>
+
+        <div class="relative">
+          <input
+            id="ava"
+            type="number"
+            min="0"
+            max="10"
+            step="0.1"
+            inputmode="decimal"
+            placeholder="Ex.: 6,5"
+            class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-14 text-lg font-bold outline-none transition focus:border-[#D13239] focus:bg-white focus:ring-4 focus:ring-red-100"
+          >
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 uppercase">/ 10</span>
+        </div>
+
+        <!-- Erro AVA -->
+        <div id="erroAva" class="hidden items-center gap-1.5 text-xs font-bold text-[#D13239] pt-1">
+          <svg class="w-4 h-4 shrink-0 text-[#D13239]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          <span>Nota inválida: digite um valor entre 0,0 e 10,0.</span>
+        </div>
+
+        <!-- Meta mínima na prova presencial -->
+        <div id="metaContainer" class="hidden pt-1 transition-all duration-200">
+          <div id="metaCard" class="p-4 rounded-2xl border space-y-1.5 transition-colors">
+            <div class="flex items-start justify-between gap-3">
+              <div>
+                <span class="text-[11px] uppercase font-extrabold tracking-wider text-slate-500 block font-heading">Nota Mínima na Presencial</span>
+                <p id="metaTitulo" class="text-xs font-medium text-slate-600 mt-0.5">Para alcançar média final 5,0:</p>
+              </div>
+              <div class="text-right shrink-0">
+                <span id="metaValor" class="text-3xl font-black tracking-tight font-heading">—</span>
+                <span class="block text-[10px] font-bold text-slate-400 uppercase">meta</span>
+              </div>
+            </div>
+            <p id="metaMensagem" class="text-xs pt-2 border-t border-slate-200/60 text-slate-600 font-medium"></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- CAMPO 2: NOTA NA PROVA PRESENCIAL -->
+      <section class="space-y-1.5 pt-3 border-t border-slate-100">
+        <div class="flex items-center justify-between">
+          <label for="presencial" class="text-sm font-bold text-slate-800 flex items-center gap-2">
+            <span class="w-6 h-6 rounded-full bg-slate-800 text-white flex items-center justify-center text-xs font-black">2</span>
+            Nota na Prova Presencial
+          </label>
+          <span class="text-xs font-semibold text-slate-400">Peso 60% (0 a 10)</span>
+        </div>
+
+        <div class="relative">
+          <input
+            id="presencial"
+            type="number"
+            min="0"
+            max="10"
+            step="0.1"
+            inputmode="decimal"
+            placeholder="Ex.: 4,5"
+            class="w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-14 text-lg font-bold outline-none transition focus:border-slate-800 focus:bg-white focus:ring-4 focus:ring-slate-100"
+          >
+          <span class="absolute right-4 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 uppercase">/ 10</span>
+        </div>
+
+        <!-- Erro Presencial -->
+        <div id="erroPresencial" class="hidden items-center gap-1.5 text-xs font-bold text-[#D13239] pt-1">
+          <svg class="w-4 h-4 shrink-0 text-[#D13239]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+          </svg>
+          <span>Nota inválida: digite um valor entre 0,0 e 10,0.</span>
+        </div>
+
+        <p class="text-xs text-slate-400">Preencha após realizar a prova para obter sua média final e situação acadêmica.</p>
+      </section>
+
+      <!-- RESULTADO FINAL: MÉDIA PONDERADA E STATUS -->
+      <section id="resultadoFinalContainer" class="hidden transition-all duration-300">
+        <div id="resultadoFinalCard" class="p-5 rounded-2xl border transition-all">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <span class="text-xs uppercase font-extrabold tracking-wider text-slate-400 block mb-1 font-heading">Situação Acadêmica</span>
+              <div id="badgeStatus" class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-black tracking-wide shadow-sm font-heading">
+                <!-- Status injetado via JS -->
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="block text-xs font-semibold text-slate-400 uppercase">Média Final</span>
+              <span id="valorMediaFinal" class="text-4xl font-black tracking-tight font-heading">—</span>
+            </div>
+          </div>
+
+          <!-- Composição das notas -->
+          <div class="mt-4 pt-4 border-t border-slate-200/70 grid grid-cols-2 gap-3 text-xs">
+            <div class="bg-white/80 p-3 rounded-xl border border-slate-100 shadow-2xs">
+              <span class="text-slate-400 block text-[11px] font-semibold">AVA (40%)</span>
+              <span id="detalheAva" class="font-extrabold text-slate-800 text-sm mt-0.5 block">— pts</span>
+            </div>
+            <div class="bg-white/80 p-3 rounded-xl border border-slate-100 shadow-2xs">
+              <span class="text-slate-400 block text-[11px] font-semibold">Presencial (60%)</span>
+              <span id="detalhePresencial" class="font-extrabold text-slate-800 text-sm mt-0.5 block">— pts</span>
+            </div>
+          </div>
+
+          <p id="mensagemStatus" class="text-xs mt-3.5 font-medium leading-relaxed"></p>
+
+          <!-- BLOCO ESPECIAL QUANDO O ALUNO FICA DE EXAME -->
+          <div id="blocoExame" class="hidden mt-5 pt-5 border-t border-amber-200/80 space-y-4">
+            
+            <!-- Meta no Exame -->
+            <div class="bg-white/95 rounded-2xl p-4 border border-amber-300/80 shadow-xs">
+              <div class="flex items-start justify-between gap-3">
+                <div>
+                  <span class="inline-flex items-center gap-1 text-[11px] font-extrabold uppercase tracking-wider text-amber-800 bg-amber-100 px-2.5 py-0.5 rounded-md font-heading">
+                    <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    Meta para Aprovação no Exame
+                  </span>
+                  <p class="text-xs text-slate-700 mt-1.5 leading-snug">
+                    Para aprovação no exame, a nova média precisa ser de pelo menos <strong>5,0</strong>:
+                  </p>
+                  <p class="text-[11px] text-slate-500 font-mono mt-1 bg-slate-100 px-2 py-1 rounded inline-block">
+                    (Média Final + Nota no Exame) ÷ 2 ≥ 5,0
+                  </p>
+                </div>
+                <div class="text-right shrink-0 bg-amber-50 px-3.5 py-2 rounded-xl border border-amber-200">
+                  <span class="block text-[10px] font-bold text-amber-700 uppercase">Nota Mínima</span>
+                  <span id="valorMetaExame" class="text-3xl font-black text-amber-900 tracking-tight font-heading">—</span>
+                  <span class="block text-[10px] font-medium text-amber-600">no exame</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Frase de Motivação -->
+            <div class="bg-gradient-to-r from-amber-500/10 via-orange-500/10 to-amber-500/15 border border-amber-300/60 rounded-2xl p-4">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-xl bg-amber-500 text-white flex items-center justify-center shrink-0 shadow-sm shadow-amber-300">
+                  <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <div>
+                  <h4 class="text-xs font-black uppercase tracking-wider text-amber-900 font-heading">Não desista, você consegue!</h4>
+                  <p id="fraseMotivacional" class="text-xs text-amber-950/90 mt-1 font-medium leading-relaxed"></p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Simulador Rápido do Exame -->
+            <div class="bg-white/80 rounded-2xl p-3.5 border border-amber-200/60 space-y-2">
+              <div class="flex items-center justify-between">
+                <label for="notaExameSimulada" class="text-xs font-bold text-slate-700">
+                  Simular nota obtida no exame:
+                </label>
+                <span id="badgeResultadoExame" class="text-[11px] font-bold px-2 py-0.5 rounded-md hidden"></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <input
+                  id="notaExameSimulada"
+                  type="number"
+                  min="0"
+                  max="10"
+                  step="0.1"
+                  placeholder="Digite a nota no exame"
+                  class="w-full rounded-xl border border-slate-200 bg-white px-3 py-2 text-sm font-bold outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-100"
+                >
+                <div class="text-right shrink-0 min-w-[90px]">
+                  <span class="block text-[10px] text-slate-400">Nova Média</span>
+                  <span id="novaMediaExame" class="text-base font-extrabold text-slate-800 font-heading">—</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- Botão Limpar -->
+      <div class="flex items-center justify-between pt-1">
+        <span class="text-[11px] text-slate-400">Padrão Univesp · 0,0 a 10,0</span>
+        <button
+          type="button"
+          id="btnLimpar"
+          class="text-xs font-semibold text-slate-400 hover:text-[#D13239] transition flex items-center gap-1.5 px-3 py-1.5 rounded-xl hover:bg-red-50"
+        >
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+          </svg>
+          Limpar notas
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Regras e Fórmulas Acadêmicas -->
+    <footer class="bg-slate-50 p-5 border-t border-slate-100 text-xs text-slate-500 space-y-1.5">
+      <div class="font-bold text-slate-700 flex items-center gap-1.5">
+        <svg class="w-4 h-4 text-[#D13239] shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        Regras de Avaliação Institucional:
+      </div>
+      <p>• <strong>Média Final:</strong> (Nota AVA × 0,4) + (Nota Presencial × 0,6)</p>
+      <p>• <strong>Meta na Presencial:</strong> (5,0 − (Nota AVA × 0,4)) ÷ 0,6</p>
+      <p>• <strong>Critério Direto:</strong> Média final ≥ 5,0 = <span class="font-bold text-emerald-700">Aprovado</span> | Média final &lt; 5,0 = <span class="font-bold text-[#D13239]">Exame</span></p>
+      <p>• <strong>Regra do Exame:</strong> (Média Final + Nota no Exame) ÷ 2 ≥ 5,0</p>
+    </footer>
+
+  </main>
+
+  <script>
+    const inputAva = document.getElementById('ava');
+    const inputPresencial = document.getElementById('presencial');
+    const erroAva = document.getElementById('erroAva');
+    const erroPresencial = document.getElementById('erroPresencial');
+
+    const metaContainer = document.getElementById('metaContainer');
+    const metaCard = document.getElementById('metaCard');
+    const metaValor = document.getElementById('metaValor');
+    const metaMensagem = document.getElementById('metaMensagem');
+
+    const resultadoFinalContainer = document.getElementById('resultadoFinalContainer');
+    const resultadoFinalCard = document.getElementById('resultadoFinalCard');
+    const badgeStatus = document.getElementById('badgeStatus');
+    const valorMediaFinal = document.getElementById('valorMediaFinal');
+    const detalheAva = document.getElementById('detalheAva');
+    const detalhePresencial = document.getElementById('detalhePresencial');
+    const mensagemStatus = document.getElementById('mensagemStatus');
+    const btnLimpar = document.getElementById('btnLimpar');
+
+    const blocoExame = document.getElementById('blocoExame');
+    const valorMetaExame = document.getElementById('valorMetaExame');
+    const fraseMotivacional = document.getElementById('fraseMotivacional');
+    const inputExameSimulada = document.getElementById('notaExameSimulada');
+    const novaMediaExame = document.getElementById('novaMediaExame');
+    const badgeResultadoExame = document.getElementById('badgeResultadoExame');
+
+    const classesNormaisAva = 'w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-14 text-lg font-bold outline-none transition focus:border-[#D13239] focus:bg-white focus:ring-4 focus:ring-red-100';
+    const classesErroAva = 'w-full rounded-2xl border border-[#D13239] bg-red-50/60 px-4 py-3.5 pr-14 text-lg font-bold outline-none transition text-red-950 focus:border-[#D13239] focus:bg-white focus:ring-4 focus:ring-red-100';
+
+    const classesNormaisPresencial = 'w-full rounded-2xl border border-slate-200 bg-slate-50 px-4 py-3.5 pr-14 text-lg font-bold outline-none transition focus:border-slate-800 focus:bg-white focus:ring-4 focus:ring-slate-100';
+    const classesErroPresencial = 'w-full rounded-2xl border border-[#D13239] bg-red-50/60 px-4 py-3.5 pr-14 text-lg font-bold outline-none transition text-red-950 focus:border-[#D13239] focus:bg-white focus:ring-4 focus:ring-red-100';
+
+    function validarCampo(input, elementoErro, classesNormal, classesErro) {
+      const raw = input.value.trim().replace(',', '.');
+      if (raw === '') {
+        elementoErro.classList.add('hidden');
+        elementoErro.classList.remove('flex');
+        input.className = classesNormal;
+        return { vazio: true, valido: false, valor: null };
+      }
+
+      const num = Number(raw);
+      if (!Number.isFinite(num) || num < 0 || num > 10) {
+        elementoErro.classList.remove('hidden');
+        elementoErro.classList.add('flex');
+        input.className = classesErro;
+        return { vazio: false, valido: false, valor: null };
+      }
+
+      elementoErro.classList.add('hidden');
+      elementoErro.classList.remove('flex');
+      input.className = classesNormal;
+      return { vazio: false, valido: true, valor: num };
+    }
+
+    const fmt = n => n.toLocaleString('pt-BR', { minimumFractionDigits: 1, maximumFractionDigits: 2 });
+
+    let ultimaMediaFinal = 0;
+
+    function atualizar() {
+      const resAva = validarCampo(inputAva, erroAva, classesNormaisAva, classesErroAva);
+      const resPresencial = validarCampo(inputPresencial, erroPresencial, classesNormaisPresencial, classesErroPresencial);
+
+      // Etapa 1: Nota do AVA
+      if (resAva.valido) {
+        metaContainer.classList.remove('hidden');
+        const ava = resAva.valor;
+        const meta = (5.0 - (ava * 0.4)) / 0.6;
+
+        if (meta <= 0) {
+          metaValor.textContent = '0,0';
+          metaCard.className = 'p-4 rounded-2xl border border-emerald-200 bg-emerald-50/90 text-emerald-950 space-y-1.5';
+          metaMensagem.textContent = 'Média já garantida! Sua nota do AVA assegura a média 5,0 mesmo se tirar 0 na presencial.';
+        } else if (meta > 10) {
+          metaValor.textContent = '> 10';
+          metaCard.className = 'p-4 rounded-2xl border border-rose-200 bg-rose-50/90 text-rose-950 space-y-1.5';
+          metaMensagem.textContent = 'Atenção: Mesmo obtendo nota máxima (10,0) na prova presencial, a média ponderada ficará abaixo de 5,0.';
+        } else {
+          metaValor.textContent = fmt(meta);
+          if (meta <= 4.0) {
+            metaCard.className = 'p-4 rounded-2xl border border-emerald-200 bg-emerald-50/80 text-emerald-950 space-y-1.5';
+            metaMensagem.textContent = `Meta acessível: você precisa de pelo menos ${fmt(meta)} na prova presencial para garantir média 5,0.`;
+          } else if (meta <= 6.5) {
+            metaCard.className = 'p-4 rounded-2xl border border-amber-200 bg-amber-50/80 text-amber-950 space-y-1.5';
+            metaMensagem.textContent = `Meta moderada: você precisa de pelo menos ${fmt(meta)} na prova presencial para atingir média 5,0.`;
+          } else {
+            metaCard.className = 'p-4 rounded-2xl border border-orange-200 bg-orange-50/80 text-orange-950 space-y-1.5';
+            metaMensagem.textContent = `Atenção: você precisa de pelo menos ${fmt(meta)} na prova presencial para alcançar a média mínima.`;
+          }
+        }
+      } else {
+        metaContainer.classList.add('hidden');
+      }
+
+      // Etapa 2: Média Final Ponderada e Status
+      if (resAva.valido && resPresencial.valido) {
+        resultadoFinalContainer.classList.remove('hidden');
+
+        const ava = resAva.valor;
+        const presencial = resPresencial.valor;
+
+        const pontosAva = ava * 0.4;
+        const pontosPresencial = presencial * 0.6;
+        const mediaFinal = pontosAva + pontosPresencial;
+        ultimaMediaFinal = mediaFinal;
+
+        valorMediaFinal.textContent = fmt(mediaFinal);
+        detalheAva.textContent = `${fmt(pontosAva)} / 4,0 pts`;
+        detalhePresencial.textContent = `${fmt(pontosPresencial)} / 6,0 pts`;
+
+        if (mediaFinal >= 5.0) {
+          // Aprovado
+          blocoExame.classList.add('hidden');
+          resultadoFinalCard.className = 'p-5 rounded-2xl border border-emerald-200 bg-emerald-50/90 text-emerald-950';
+          valorMediaFinal.className = 'text-4xl font-black tracking-tight text-emerald-700 font-heading';
+          badgeStatus.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-black tracking-wide bg-emerald-600 text-white shadow-emerald-200 font-heading';
+          badgeStatus.innerHTML = `
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M5 13l4 4L19 7"/>
+            </svg>
+            APROVADO(A)
+          `;
+          mensagemStatus.className = 'text-xs mt-3.5 font-medium leading-relaxed text-emerald-900';
+          mensagemStatus.textContent = `Parabéns! Sua média final de ${fmt(mediaFinal)} atingiu o critério de aprovação direta da Univesp (mínimo 5,0).`;
+        } else {
+          // Em Exame
+          blocoExame.classList.remove('hidden');
+          resultadoFinalCard.className = 'p-5 rounded-2xl border border-amber-200 bg-amber-50/90 text-amber-950';
+          valorMediaFinal.className = 'text-4xl font-black tracking-tight text-amber-700 font-heading';
+          badgeStatus.className = 'inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-sm font-black tracking-wide bg-amber-500 text-white shadow-amber-200 font-heading';
+          badgeStatus.innerHTML = `
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+            </svg>
+            EM EXAME
+          `;
+          mensagemStatus.className = 'text-xs mt-3.5 font-medium leading-relaxed text-amber-900';
+          mensagemStatus.textContent = `Sua média final foi ${fmt(mediaFinal)}, abaixo dos 5,0 necessários. Você fará a prova de exame para buscar a aprovação final.`;
+
+          // Nota necessária no Exame: (mediaFinal + exame) / 2 >= 5.0 => exame >= 10.0 - mediaFinal
+          const notaNecessariaExame = Math.max(0, 10.0 - mediaFinal);
+          valorMetaExame.textContent = fmt(notaNecessariaExame);
+
+          // Frase motivacional
+          fraseMotivacional.textContent = `Você precisa de ${fmt(notaNecessariaExame)} no exame para garantir sua aprovação. Mantenha a calma, revise com atenção os conteúdos que teve mais dúvidas e acredite na sua dedicação: o exame é a sua grande oportunidade de virar o jogo e conquistar essa vitória acadêmica!`;
+
+          atualizarSimulacaoExame();
+        }
+      } else {
+        resultadoFinalContainer.classList.add('hidden');
+        blocoExame.classList.add('hidden');
+      }
+    }
+
+    function atualizarSimulacaoExame() {
+      const raw = inputExameSimulada.value.trim().replace(',', '.');
+      if (raw === '') {
+        novaMediaExame.textContent = '—';
+        badgeResultadoExame.classList.add('hidden');
+        return;
+      }
+      const numExame = Number(raw);
+      if (!Number.isFinite(numExame) || numExame < 0 || numExame > 10) {
+        novaMediaExame.textContent = 'Nota inválida';
+        badgeResultadoExame.classList.add('hidden');
+        return;
+      }
+
+      const mediaAposExame = (ultimaMediaFinal + numExame) / 2;
+      novaMediaExame.textContent = fmt(mediaAposExame);
+      badgeResultadoExame.classList.remove('hidden');
+
+      if (mediaAposExame >= 5.0) {
+        badgeResultadoExame.textContent = 'Aprovado no Exame!';
+        badgeResultadoExame.className = 'text-[11px] font-bold px-2 py-0.5 rounded-md bg-emerald-100 text-emerald-800 font-heading';
+      } else {
+        badgeResultadoExame.textContent = 'Abaixo de 5,0';
+        badgeResultadoExame.className = 'text-[11px] font-bold px-2 py-0.5 rounded-md bg-rose-100 text-rose-800 font-heading';
+      }
+    }
+
+    inputAva.addEventListener('input', atualizar);
+    inputPresencial.addEventListener('input', atualizar);
+    inputExameSimulada.addEventListener('input', atualizarSimulacaoExame);
+
+    btnLimpar.addEventListener('click', () => {
+      inputAva.value = '';
+      inputPresencial.value = '';
+      inputExameSimulada.value = '';
+      erroAva.classList.add('hidden');
+      erroAva.classList.remove('flex');
+      erroPresencial.classList.add('hidden');
+      erroPresencial.classList.remove('flex');
+      inputAva.className = classesNormaisAva;
+      inputPresencial.className = classesNormaisPresencial;
+      atualizar();
+      inputAva.focus();
+    });
+  </script>
+</body>
+</html>
